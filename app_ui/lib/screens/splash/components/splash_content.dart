@@ -1,15 +1,17 @@
+import 'package:app_ui/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class SplashContent extends StatelessWidget {
-  const SplashContent({
+  SplashContent({
     Key? key,
     this.text,
     this.image,
   }) : super(key: key);
   final String? text, image;
+  final splashController = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {

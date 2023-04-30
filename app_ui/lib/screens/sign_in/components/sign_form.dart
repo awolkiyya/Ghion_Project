@@ -36,6 +36,9 @@ class _SignFormState extends State<SignForm> {
     var res = await loginController.login(data, 'login');
     var body = json.decode(res.body);
     if (body['status'] == 200) {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      _prefs.setString("token", body['api_token']);
+      _prefs.setInt("user_id", body['data']);
       Get.snackbar(
         "Success",
         body['message'],
@@ -57,7 +60,7 @@ class _SignFormState extends State<SignForm> {
         _prefs.remove("email");
         _prefs.remove("password");
       }
-      Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+      Get.offAllNamed(LoginSuccessScreen.routeName);
     } else {
       Get.snackbar(
         "Error",
