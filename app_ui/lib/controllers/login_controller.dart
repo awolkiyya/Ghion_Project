@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:app_ui/models/user.dart';
 import 'package:app_ui/screens/login_success/login_success_screen.dart';
-import 'package:flutter/widgets.dart';
+import 'package:app_ui/screens/sign_in/sign_in_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart'
     as http; // this is used to connect with the laravel api it useds
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter/material.dart';
-import 'package:app_ui/models/User.dart' as model;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   // create the state here to manage app
@@ -43,12 +43,12 @@ class LoginController extends GetxController {
     print(((File(compressedFile!.path)).lengthSync() / 1024 / 1024)
             .toStringAsFixed(2) +
         "Mb");
-    uploadUserData(data, compressedFile, 'register');
+    storeUserData(data, compressedFile, 'register');
 
     // return null;
   }
 
-  Future uploadUserData(data, file, apiUrl) async {
+  Future storeUserData(data, file, apiUrl) async {
     Map<String, String> headers = {
       'Content-Type': 'multipart/form-data',
     };
@@ -64,7 +64,6 @@ class LoginController extends GetxController {
       ..headers.addAll(headers)
       ..files.add(await http.MultipartFile.fromPath('image', file.path));
     var response = await request.send();
-    print(response.statusCode);
     if (response.statusCode == 200) {
       Get.back();
       barrierDismissible.value = true;
@@ -78,6 +77,7 @@ class LoginController extends GetxController {
     } else {
       Get.back();
       barrierDismissible.value = true;
+      print(response.statusCode);
       Get.snackbar("Errors", "Validation Error Check Your Input Field",
           margin: EdgeInsets.all(20.0),
           icon: Icon(
@@ -88,7 +88,7 @@ class LoginController extends GetxController {
     }
   }
 
-  // this is the place every
+  // this is the login place
   Future login(data, apiUrl) async {
     return await http.post(
       Uri.parse("http://192.168.141.37:8000/api/" + apiUrl),
@@ -101,6 +101,7 @@ class LoginController extends GetxController {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
+  // this is registration place
   Future register(data) async {
     await compressImage(data);
   }
@@ -119,5 +120,17 @@ class LoginController extends GetxController {
       body: jsonEncode(data),
       headers: _setHeader(),
     );
+  }
+
+  //this is the logout place
+  void logout() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.remove("token");
+    Get.snackbar(
+      "Success",
+      "User Logout Successfully",
+      margin: EdgeInsets.all(20.0),
+    );
+    Get.offAllNamed(SignInScreen.routeName);
   }
 }

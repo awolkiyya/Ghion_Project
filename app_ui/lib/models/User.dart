@@ -6,7 +6,7 @@ class User {
   String? phoneNumber;
   String? address;
   String? email;
-  String? password;
+  String? profileUrl;
 
   User({
     required this.firstName,
@@ -14,7 +14,7 @@ class User {
     required this.phoneNumber,
     required this.address,
     required this.email,
-    required this.password,
+    required this.profileUrl,
   });
   // to store to the firebase as documents change this object to json
   Map<String, dynamic> tojson() {
@@ -24,15 +24,15 @@ class User {
       "phoneNumber": phoneNumber,
       "address": address,
       "email": email,
-      "password": password,
+      "profileUrl": profileUrl,
     };
   }
 
   User.fromJson(Map<String, dynamic> json)
-      : firstName = json['firstName'],
-        lastName = json['lastName'],
-        phoneNumber = json['phoneNumber'],
+      : firstName = json['first_name'],
+        lastName = json['last_name'],
+        phoneNumber = json['phone_number'],
         address = json['address'],
         email = json['email'],
-        password = json['password'];
+        profileUrl = json['profile'];
 }

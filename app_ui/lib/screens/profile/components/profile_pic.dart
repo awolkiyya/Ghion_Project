@@ -1,11 +1,13 @@
+import 'package:app_ui/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class ProfilePic extends StatelessWidget {
-  const ProfilePic({
+  ProfilePic({
     Key? key,
   }) : super(key: key);
-
+  final homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -16,8 +18,8 @@ class ProfilePic extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/images/Profile Image.png"),
-          ),
+              backgroundImage: NetworkImage(
+                  "http://192.168.141.37:8000/storage/${homeController.user.profileUrl}")),
           Positioned(
             right: -16,
             bottom: 0,

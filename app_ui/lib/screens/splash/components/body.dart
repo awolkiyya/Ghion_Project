@@ -37,7 +37,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: <Widget>[
             Expanded(
-              flex: 3,
+              flex: 8,
               child: PageView.builder(
                 onPageChanged: (value) {
                   setState(() {
@@ -45,9 +45,11 @@ class _BodyState extends State<Body> {
                   });
                 },
                 itemCount: splashData.length,
-                itemBuilder: (context, index) => SplashContent(
-                  image: splashData[index]["image"],
-                  text: splashData[index]['text'],
+                itemBuilder: (context, index) => Expanded(
+                  child: SplashContent(
+                    image: splashData[index]["image"],
+                    text: splashData[index]['text'],
+                  ),
                 ),
               ),
             ),

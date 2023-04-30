@@ -98,9 +98,9 @@ class AuthController extends Controller
              
             return response()->json([
                 'status' => 200,
-                'data'=>$user,
+                'data'=>$user->id,
                 'message' => 'User Created Successfully',
-                'api_token' => $user->createToken(env('API_TOKEN', "1234567890QWERTYUIOPasdfgTYUIertDFGertyDFg"))->plainTextToken
+                'api_token' =>$user->createToken('client')->plainTextToken,
             ], 200);
 
         } catch (\Throwable $th) {
@@ -203,7 +203,7 @@ class AuthController extends Controller
                             'status' => 200,
                             'data'=>$user->id,
                             'message' => 'User Logged In Successfully',
-                            'api_token' => $user->createToken(env('API_TOKEN', "1234567890QWERTYUIOPasdfgTYUIertDFGertyDFg"))->plainTextToken
+                            'api_token' =>1,
                         ], 200);}
 
         } catch (\Throwable $th) {
@@ -253,7 +253,7 @@ class AuthController extends Controller
      * @return response()
      */
     public function showResetPasswordForm($token) { 
-       return view('auth.forgetPasswordLink', ['token' => $token]);
+    //    return view('auth.forgetPasswordLink', ['token' => $token]);
     }
 
     /**

@@ -11,8 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashController extends GetxController {
   @override
   void onInit() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.remove("token");
     super.onInit();
   }
 
@@ -20,10 +18,10 @@ class SplashController extends GetxController {
   void onReady() async {
     super.onReady();
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    if (_prefs.getString("token") != null) {
+    if (_prefs.getInt("token") != null) {
       Get.offAllNamed(HomeScreen.routeName);
     } else {
-      // Get.offAllNamed(SplashScreen.routeName);
+      Get.offAllNamed(SplashScreen.routeName);
     }
   }
 

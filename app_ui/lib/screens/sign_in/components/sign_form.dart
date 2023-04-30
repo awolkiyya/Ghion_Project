@@ -37,7 +37,7 @@ class _SignFormState extends State<SignForm> {
     var body = json.decode(res.body);
     if (body['status'] == 200) {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
-      _prefs.setString("token", body['api_token']);
+      _prefs.setInt("token", body['api_token']);
       _prefs.setInt("user_id", body['data']);
       Get.snackbar(
         "Success",
