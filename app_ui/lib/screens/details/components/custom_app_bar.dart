@@ -5,9 +5,7 @@ import 'package:app_ui/constants.dart';
 import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final double rating;
-
-  CustomAppBar({required this.rating});
+  CustomAppBar();
 
   @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
@@ -30,13 +28,12 @@ class CustomAppBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(60),
                   ),
                   primary: kPrimaryColor,
-                  backgroundColor: Colors.white,
                   padding: EdgeInsets.zero,
                 ),
                 onPressed: () => Navigator.pop(context),
                 child: SvgPicture.asset(
                   "assets/icons/Back ICon.svg",
-                  height: 15,
+                  height: 20,
                 ),
               ),
             ),

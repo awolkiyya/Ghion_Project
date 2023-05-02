@@ -1,3 +1,4 @@
+import 'package:app_ui/screens/product_add/add_product_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:app_ui/screens/cart/cart_screen.dart';
 import 'package:app_ui/screens/complete_profile/complete_profile_screen.dart';
@@ -26,4 +27,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
+  AddProductScreen.routeName: (context) => AddProductScreen(),
 };

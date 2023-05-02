@@ -6,33 +6,9 @@ import 'package:app_ui/enums.dart';
 import 'components/body.dart';
 import 'package:get/get.dart';
 
-// class HomeScreen extends StatelessWidget {
-//   static String routeName = "/home";
-//   final homeController = Get.put(HomeController());
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Body(),
-//       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
-//     );
-//   }
-// }
-class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   final homeController = Get.put(HomeController());
-  @override
-  void initState() {
-    homeController.getUserinfo();
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

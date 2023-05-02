@@ -1,25 +1,38 @@
+import 'dart:io';
+// import 'dart:js_util';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
 
-class Service {
-  Future<bool> addImage(Map<String, String> data, String filepath) async {
-    String addimageUrl = 'http://192.168.141.37:8000/api/register';
-    Map<String, String> headers = {
-      'Content-Type': 'multipart/form-data',
-    };
-    var request = http.MultipartRequest('POST', Uri.parse(addimageUrl))
-      ..fields.addAll(data)
-      ..headers.addAll(headers)
-      ..files.add(await http.MultipartFile.fromPath('image', filepath));
-    var response = await request.send();
-    // var body = json.decode(response.body);
-    print(response.statusCode);
-    // if (response.statusCode == 201) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    return true;
+class Service extends GetConnect {
+  Future<String> addImage(Map<String, String> data, List<File?> files) async {
+    try {
+      final form = FormData(data);
+
+      for (File? file in files) {
+        form.files.add(
+          MapEntry(
+            "file[]",
+            MultipartFile(File(file!.path),
+                filename:
+                    "${DateTime.now().microsecondsSinceEpoch}.${file.path.split('.').last}"),
+          ),
+        );
+      }
+      // form.add(data);
+      final response = await post(
+        "http://192.168.141.37:8000/api/storeProduct",
+        form,
+      );
+      print(response.body);
+      if (response.status.hasError) {
+        return Future.error(response.body);
+      } else {
+        return response.body(["message"]);
+      }
+    } catch (e) {
+      return Future.error(e.toString());
+    }
   }
 }

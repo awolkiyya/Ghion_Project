@@ -1,6 +1,6 @@
 import 'package:app_ui/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
-
+import 'package:app_ui/screens/user_products_lists/user_product_list_screen.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "My Products",
             icon: "assets/icons/Settings.svg",
-            press: () {},
+            press: () {
+              Get.to(UserProductList());
+            },
           ),
           ProfileMenu(
             text: "Log Out",

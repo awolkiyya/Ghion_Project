@@ -33,7 +33,7 @@ class LoginController extends GetxController {
     var compressedFile = await FlutterImageCompress.compressAndGetFile(
       pickedFilePath.value,
       targetpath,
-      quality: 90,
+      quality: 100,
     );
     // compreddImagePath = compressedFile.path;
     print(((File(pickedFilePath.value)).lengthSync() / 1024 / 1024)
@@ -59,11 +59,12 @@ class LoginController extends GetxController {
       barrierDismissible: barrierDismissible.value,
     );
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.141.37:8000/api/" + apiUrl))
+        'POST', Uri.parse("http://192.168.141.37:8000/api/register"))
       ..fields.addAll(data)
       ..headers.addAll(headers)
       ..files.add(await http.MultipartFile.fromPath('image', file.path));
     var response = await request.send();
+    print(response);
     if (response.statusCode == 200) {
       Get.back();
       barrierDismissible.value = true;
@@ -126,6 +127,7 @@ class LoginController extends GetxController {
   void logout() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     _prefs.remove("token");
+    _prefs.remove("user_id");
     Get.snackbar(
       "Success",
       "User Logout Successfully",

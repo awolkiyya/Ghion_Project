@@ -33,6 +33,10 @@ const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
+const String kPriceNullError = "please Enter product price";
+const String kdescriptionNullError = "please Write Some Product Discription";
+const String kTittleNullError = "please Enter Some Product Tittle";
+const String kcatagoryNullError = "please Enter Some Product Catagory";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

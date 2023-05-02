@@ -28,7 +28,15 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              child: Container(
+                margin: EdgeInsets.only(top: 20.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            "http://192.168.141.37:8000/storage/${widget.product.src!.srcModel![selectedImage].imagePath}"))),
+              ),
             ),
           ),
         ),
@@ -41,7 +49,7 @@ class _ProductImagesState extends State<ProductImages> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...List.generate(widget.product.images.length,
+                ...List.generate(widget.product.src!.srcModel!.length,
                     (index) => buildSmallProductPreview(index)),
               ],
             ),
@@ -55,22 +63,31 @@ class _ProductImagesState extends State<ProductImages> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          print(index);
           selectedImage = index;
         });
       },
       child: AnimatedContainer(
         duration: defaultDuration,
-        margin: EdgeInsets.only(right: 15),
-        padding: EdgeInsets.all(8),
-        height: getProportionateScreenWidth(48),
-        width: getProportionateScreenWidth(48),
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        height: getProportionateScreenWidth(80),
+        width: getProportionateScreenWidth(80),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images[index]),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                  "http://192.168.141.37:8000/storage/${widget.product.src!.srcModel![index].imagePath}"),
+            ),
+          ),
+        ),
       ),
     );
   }

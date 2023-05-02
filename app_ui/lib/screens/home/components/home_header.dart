@@ -1,5 +1,7 @@
+import 'package:app_ui/screens/product_add/add_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ui/screens/cart/cart_screen.dart';
+import 'package:get/get.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
@@ -20,13 +22,20 @@ class HomeHeader extends StatelessWidget {
         children: [
           SearchField(),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => Navigator.pushNamed(context, CartScreen.routeName),
+            svgSrc: "assets/icons/Search Icon.svg",
+            press: () => {
+              Get.snackbar(
+                "Search",
+                "This button used to search product by there catagores",
+                margin: EdgeInsets.all(10.0),
+              ),
+            },
           ),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
+            svgSrc: "assets/icons/Plus Icon.svg",
+            press: () {
+              Get.to(AddProductScreen());
+            },
           ),
         ],
       ),
